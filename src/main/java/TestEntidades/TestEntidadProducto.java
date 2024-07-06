@@ -21,11 +21,6 @@ public class TestEntidadProducto {
 		
 		//invocamos el metodo registrar
 		crud.RegistrarProducto(producto);
-		
-		/*List<TblProductocl2> listado=crud.ListadoProducto();
-		for(TblProductocl2 list:listado){
-			System.out.println("nombre " + list.getNombrecl2() + " precio de compra " + list.getPreciocompcl2() + " precio de venta " + list.getPrecioventacl2() + " estado " + list.getEstadocl2());
-		}*/
 	}
 
 }
