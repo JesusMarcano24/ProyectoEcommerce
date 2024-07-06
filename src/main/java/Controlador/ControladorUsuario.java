@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,9 +30,17 @@ public class ControladorUsuario extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//Instanciamos
+				Usuario usuario= new Usuario();
+				UsuarioDaoImpl crud = new UsuarioDaoImpl();
+				List<Usuario> listadoUsuario= crud.ListadoUsuario();
+				
+				//Hacemos el listado de productos
+				request.setAttribute("listadoUsuarios", listadoUsuario);
+				//Redireccion
+				request.getRequestDispatcher("/ListadoUsuarios.jsp").forward(request, response);
 	}
 
 	/**

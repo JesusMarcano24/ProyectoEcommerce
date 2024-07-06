@@ -1,5 +1,7 @@
 package Dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,4 +31,17 @@ public class UsuarioDaoImpl implements IUsuarioDao {
         emf.close();
         return usuarioLogin;
     }
+    
+    @Override
+	public List<Usuario> ListadoUsuario() {
+		//Gestionamos la entidad
+		EntityManagerFactory fabr= Persistence.createEntityManagerFactory("ProyectoEcommerce");
+		EntityManager em=fabr.createEntityManager();
+		em.getTransaction().begin();
+		//Recuperamos los datos
+		List<Usuario> listadoUsuarios=em.createQuery("select u from Usuario u", Usuario.class).getResultList();
+		em.getTransaction().commit();
+		em.close();
+		return listadoUsuarios;
+	}
 }

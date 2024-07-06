@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
-<%@page import="modelo.TblUsuariocl3"%>
+<%@page import="model.Usuario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,20 +69,25 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
             <th>Contraseña</th>
         </tr>
     </thead>
     <tbody>
         <% 
-        List<TblUsuariocl3> listadoUsuarios = (List<TblUsuariocl3>)request.getAttribute("listadoUsuarios");
+        List<Usuario> listadoUsuarios = (List<Usuario>)request.getAttribute("listadoUsuarios");
         if (listadoUsuarios != null) {
-            for (TblUsuariocl3 lis : listadoUsuarios) {
+            for (Usuario lis : listadoUsuarios) {
         %>
         <tr>
-            <td><%=lis.getIdusuariocl3()%></td>
-            <td><%=lis.getUsuariocl3()%></td>
-            <td><%=lis.getPasswordcl3()%></td>
+            <td><%=lis.getId()%></td>
+            <td><%=lis.getNombre()%></td>
+            <td><%=lis.getEmail()%></td>
+            <td><%=lis.getRol()%></td>
+            <td><%=lis.getPassword()%></td>
+            
         </tr>	
         <%	
             }
