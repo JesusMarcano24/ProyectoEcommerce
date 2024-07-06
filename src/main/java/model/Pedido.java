@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -27,15 +26,12 @@ public class Pedido implements Serializable {
 	@Column(name="fecha_pedido")
 	private Date fechaPedido;
 
+	private String nombreUsuario;
+
+	@Column(name="pedido_manual")
+	private int pedidoManual;
+
 	private BigDecimal total;
-
-	//bi-directional many-to-one association to Detallepedido
-	@OneToMany(mappedBy="pedido")
-	private List<Detallepedido> detallepedidos;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	private Usuario usuario;
 
 	public Pedido() {
 	}
@@ -64,42 +60,28 @@ public class Pedido implements Serializable {
 		this.fechaPedido = fechaPedido;
 	}
 
+	public String getNombreUsuario() {
+		return this.nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public int getPedidoManual() {
+		return this.pedidoManual;
+	}
+
+	public void setPedidoManual(int pedidoManual) {
+		this.pedidoManual = pedidoManual;
+	}
+
 	public BigDecimal getTotal() {
 		return this.total;
 	}
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
-	}
-
-	public List<Detallepedido> getDetallepedidos() {
-		return this.detallepedidos;
-	}
-
-	public void setDetallepedidos(List<Detallepedido> detallepedidos) {
-		this.detallepedidos = detallepedidos;
-	}
-
-	public Detallepedido addDetallepedido(Detallepedido detallepedido) {
-		getDetallepedidos().add(detallepedido);
-		detallepedido.setPedido(this);
-
-		return detallepedido;
-	}
-
-	public Detallepedido removeDetallepedido(Detallepedido detallepedido) {
-		getDetallepedidos().remove(detallepedido);
-		detallepedido.setPedido(null);
-
-		return detallepedido;
-	}
-
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }

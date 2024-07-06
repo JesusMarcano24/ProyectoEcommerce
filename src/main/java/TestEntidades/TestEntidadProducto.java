@@ -1,22 +1,23 @@
 package TestEntidades;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import java.util.List;
 
 import Dao.ClassProductoImp;
-import modelo.TblProductocl3;
+import model.Producto;
 
 public class TestEntidadProducto {
 
 	public static void main(String[] args) {
-		TblProductocl3 producto= new TblProductocl3();
+		Producto producto= new Producto();
 		ClassProductoImp crud= new ClassProductoImp();
 		
 		//asignamos valores
-		producto.setNombrecl3("ejemplo1");
-		producto.setDescripcl3("example1");
-		producto.setEstadocl3("Viejo");
-		producto.setPreciocompcl3(10);
-		producto.setPrecioventacl3(100);
+		producto.setNombre("ejemplo1");
+		producto.setDescripcion("descripcion");
+		producto.setPrecio(new BigDecimal("50.50"));
+		producto.setFechaCreacion(new Date());
 		
 		//invocamos el metodo registrar
 		crud.RegistrarProducto(producto);

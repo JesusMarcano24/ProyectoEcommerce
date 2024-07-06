@@ -5,13 +5,11 @@
              version="2.1">
 
     <persistence-unit name="ProyectoEcommerce">
+    	<class>model.Inventario</class>
+    	<class>model.Pedido</class>
+    	<class>model.Producto</class>
+    	<class>model.Usuario</class>
         <!-- propiedades o configuración de la conexión a BASE DE DATOS -->
-        
-        <class>model.Detallepedido</class>
-        <class>model.Inventario</class>
-        <class>model.Pedido</class>
-        <class>model.Producto</class>
-        <class>model.Usuario</class>
 
         <properties>
             <!-- MySQL -->

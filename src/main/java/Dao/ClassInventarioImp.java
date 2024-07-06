@@ -6,65 +6,65 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import Interfaces.IProducto;
-import model.Producto;
+import Interfaces.IInventario;
+import model.Inventario;;
 
-public class ClassProductoImp implements IProducto {
+public class ClassInventarioImp implements IInventario{
 
 	@Override
-	public void RegistrarProducto(Producto producto) {
+	public void RegistrarInventario(Inventario inventario) {
 		EntityManagerFactory fabr= Persistence.createEntityManagerFactory("ProyectoEcommerce");
 		EntityManager em=fabr.createEntityManager();
 		em.getTransaction().begin();
-		em.persist(producto);
-		System.out.println("Producto registrado con exito en la BD");
+		em.persist(inventario);
+		System.out.println("Inventario registrado con exito en la BD");
 		em.getTransaction().commit();
 		em.close();
 	}
 
 	@Override
-	public List<Producto> ListadoProducto() {
+	public List<Inventario> ListadoInventario() {
 		//Gestionamos la entidad
 		EntityManagerFactory fabr= Persistence.createEntityManagerFactory("ProyectoEcommerce");
 		EntityManager em=fabr.createEntityManager();
 		em.getTransaction().begin();
 		//Recuperamos los datos
-		List<Producto> listadoProductos=em.createQuery("select p from Producto p", Producto.class).getResultList();
+		List<Inventario> listadoInventarios=em.createQuery("select p from Inventario p", Inventario.class).getResultList();
 		em.getTransaction().commit();
 		em.close();
-		return listadoProductos;
+		return listadoInventarios;
 	}
 
 	@Override
-	public void ActualizarProducto(Producto producto) {
+	public void ActualizarInventario(Inventario inventario) {
 		EntityManagerFactory fabr= Persistence.createEntityManagerFactory("ProyectoEcommerce");
 		EntityManager em=fabr.createEntityManager();
 		em.getTransaction().begin();
-		em.merge(producto);
+		em.merge(inventario);
 		em.getTransaction().commit();
 		em.close();
 	}
 
 	@Override
-	public void EliminarProducto(Producto producto) {
+	public void EliminarInventario(Inventario inventario) {
 		EntityManagerFactory fabr= Persistence.createEntityManagerFactory("ProyectoEcommerce");
 		EntityManager em=fabr.createEntityManager();
 		em.getTransaction().begin();
-		Producto elim=em.merge(producto);
+		Inventario elim=em.merge(inventario);
 		em.remove(elim);
 		em.getTransaction().commit();
 		em.close();
 	}
 
 	@Override
-	public Producto BuscarProducto(Producto producto) {
+	public Inventario BuscarInventario(Inventario inventario) {
 		EntityManagerFactory fabr= Persistence.createEntityManagerFactory("ProyectoEcommerce");
 		EntityManager em=fabr.createEntityManager();
 		em.getTransaction().begin();
-		Producto buscarProducto=em.find(Producto.class, producto.getId());
+		Inventario buscarInventario=em.find(Inventario.class, inventario.getId());
 		em.getTransaction().commit();
 		em.close();
-		return buscarProducto;
+		return buscarInventario;
 	}
 
 }

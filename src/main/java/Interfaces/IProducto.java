@@ -2,13 +2,13 @@ package Interfaces;
 
 import java.util.List;
 
-import modelo.TblProductocl3;
+import model.Producto;
 
 public interface IProducto {
  //Declaramos metodos
-	public void RegistrarProducto (TblProductocl3 producto);
-	public List<TblProductocl3> ListadoProducto();
-	public void ActualizarProducto(TblProductocl3 producto);
-	public void EliminarProducto(TblProductocl3 producto);
-	public TblProductocl3 BuscarProducto(TblProductocl3 producto);
+	public void RegistrarProducto (Producto producto);
+	public List<Producto> ListadoProducto();
+	public void ActualizarProducto(Producto producto);
+	public void EliminarProducto(Producto producto);
+	public Producto BuscarProducto(Producto producto);
 }

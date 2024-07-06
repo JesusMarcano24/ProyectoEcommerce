@@ -20,13 +20,11 @@ public class Inventario implements Serializable {
 
 	private int cantidad;
 
+	private String nombreProducto;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="ultima_actualizacion")
 	private Date ultimaActualizacion;
-
-	//bi-directional many-to-one association to Producto
-	@ManyToOne
-	private Producto producto;
 
 	public Inventario() {
 	}
@@ -47,20 +45,20 @@ public class Inventario implements Serializable {
 		this.cantidad = cantidad;
 	}
 
+	public String getNombreProducto() {
+		return this.nombreProducto;
+	}
+
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
+	}
+
 	public Date getUltimaActualizacion() {
 		return this.ultimaActualizacion;
 	}
 
 	public void setUltimaActualizacion(Date ultimaActualizacion) {
 		this.ultimaActualizacion = ultimaActualizacion;
-	}
-
-	public Producto getProducto() {
-		return this.producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
 	}
 
 }

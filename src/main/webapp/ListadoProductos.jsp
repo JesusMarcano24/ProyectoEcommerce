@@ -1,7 +1,7 @@
+<%@page import="model.Producto"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
-<%@page import="modelo.TblProductocl3"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -71,27 +71,25 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Precio de Compra</th>
-            <th>Precio de Venta</th>
-            <th>Estado</th>
+            <th>Precio</th>
+            <th>Fecha de creación</th>
             <th colspan="2" align="center">Acciones</th>
         </tr>
     </thead>
     <tbody>
         <% 
-        List<TblProductocl3> listadoProductos = (List<TblProductocl3>)request.getAttribute("listadoProductos");
+        List<Producto> listadoProductos = (List<Producto>)request.getAttribute("listadoProductos");
         if (listadoProductos != null) {
-            for (TblProductocl3 lis : listadoProductos) {
+            for (Producto lis : listadoProductos) {
         %>
         <tr>
-            <td><%=lis.getIdproductoscl3()%></td>
-            <td><%=lis.getNombrecl3()%></td>
-            <td><%=lis.getDescripcl3()%></td>
-            <td><%=lis.getPreciocompcl3()%></td>
-            <td><%=lis.getPrecioventacl3()%></td>
-            <td><%=lis.getEstadocl3()%></td>
-            <td><a href="ControladorProducto?accion=Eliminar&cod=<%=lis.getIdproductoscl3() %>">Eliminar</a></td>
-	    <td><a href="ControladorProducto?accion=Modificar&cod=<%=lis.getIdproductoscl3()%>">Actualizar</a></td>
+            <td><%=lis.getId()%></td>
+            <td><%=lis.getNombre()%></td>
+            <td><%=lis.getDescripcion()%></td>
+            <td><%=lis.getPrecio()%></td>
+            <td><%=lis.getFechaCreacion()%></td>
+            <td><a href="ControladorProducto?accion=Eliminar&cod=<%=lis.getId() %>">Eliminar</a></td>
+	    <td><a href="ControladorProducto?accion=Modificar&cod=<%=lis.getId()%>">Actualizar</a></td>
         </tr>	
         <%	
             }

@@ -12,19 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import Dao.ClassProductoImp;
-import model.Producto;
+import Dao.ClassInventarioImp;
+import model.Inventario;
 
 /**
- * Servlet implementation class ControladorProducto
+ * Servlet implementation class ControladorInventario
  */
-public class ControladorProducto extends HttpServlet {
+public class ControladorInventario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ControladorProducto() {
+    public ControladorInventario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +36,8 @@ public class ControladorProducto extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		//Instanciamos
-		Producto producto = new Producto();
-		ClassProductoImp crud = new ClassProductoImp();
+		Inventario inventario = new Inventario();
+		ClassInventarioImp crud = new ClassInventarioImp();
 		
 		//recuperamos la accion y codigo
 		String accion=request.getParameter("accion");
@@ -47,37 +47,36 @@ public class ControladorProducto extends HttpServlet {
 			case "Modificar":
 				int codigo=Integer.parseInt(request.getParameter("cod"));
 				//asignar el codigo...
-				producto.setId(codigo);
-				Producto buscarcod=crud.BuscarProducto(producto);
+				inventario.setId(codigo);
+				Inventario buscarcod=crud.BuscarInventario(inventario);
 				request.setAttribute("codigo",buscarcod.getId());
-				request.setAttribute("nombre",buscarcod.getNombre());
-				request.setAttribute("descripcion",buscarcod.getDescripcion());
-				request.setAttribute("precio",buscarcod.getPrecio());
-				request.setAttribute("fechaCreacion",buscarcod.getFechaCreacion());
+				request.setAttribute("nombreProducto",buscarcod.getNombreProducto());
+				request.setAttribute("ultimaActualizacion",buscarcod.getUltimaActualizacion());
+				request.setAttribute("cantidad",buscarcod.getCantidad());
 				//redireccionamos..
-				request.getRequestDispatcher("/FormActualizarProducto.jsp").forward(request, response);
+				request.getRequestDispatcher("/FormActualizarInventario.jsp").forward(request, response);
 				//salimos
 				break;
 			case "Eliminar":
 				int codeliminar=Integer.parseInt(request.getParameter("cod"));
 				//asignamos el codigo a eliminar
-				producto.setId(codeliminar);
+				inventario.setId(codeliminar);
 				//invocamos al metodo eliminar...
-				crud.EliminarProducto(producto);
+				crud.EliminarInventario(inventario);
 				//refrescar el listado..
-				List<Producto> listado=crud.ListadoProducto();
-				request.setAttribute("listadodeproductos",listado);
+				List<Inventario> listado=crud.ListadoInventario();
+				request.setAttribute("listadodeInventarios",listado);
 				//redireccionar
-				request.getRequestDispatcher("/ListadoProductos.jsp");
+				request.getRequestDispatcher("/ListadoInventarios.jsp");
 				//salimos
 				break;
 			
 			case "Listar":
-				List<Producto> listadoProducto= crud.ListadoProducto();
-				//Hacemos el listado de productos
-				request.setAttribute("listadoProductos", listadoProducto);
+				List<Inventario> listadoInventario = crud.ListadoInventario();
+				//Hacemos el listado de inventarios
+				request.setAttribute("listadoInventarios", listadoInventario);
 				//Redireccion
-				request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);
+				request.getRequestDispatcher("/ListadoInventarios.jsp").forward(request, response);
 				break;
 				
 			 }  //fin del switch...
@@ -91,51 +90,49 @@ public class ControladorProducto extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Recuperamos valores
-	    String nombre = request.getParameter("nombre");
+	    String nombreProd = request.getParameter("nombreProducto");
 	    String codigo = request.getParameter("codigo");
-	    String fechaCreacionStr = request.getParameter("fechaCreacion");
-	    String precioStr = request.getParameter("precio");
-	    String descripcion = request.getParameter("descripcion");
+	    String ultimaActStr = request.getParameter("ultimaActualizacion");
+	    String cantidadStr = request.getParameter("cantidad");
 	    
-	    BigDecimal precio = new BigDecimal(precioStr);
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    Date fechaCreacion = null;
+	    Date ultimaAct = null;
+	    Integer cantidad = Integer.parseInt(cantidadStr);
 	    try {
-	        fechaCreacion = dateFormat.parse(fechaCreacionStr);
+	    	ultimaAct = dateFormat.parse(ultimaActStr);
 	    } catch (ParseException e) {
 	        e.printStackTrace();
 	    }
 
 	    // Instanciamos las entidades
-	    Producto producto = new Producto();
-	    ClassProductoImp crud = new ClassProductoImp();
+	    Inventario inventario = new Inventario();
+	    ClassInventarioImp crud = new ClassInventarioImp();
 
-	    producto.setNombre(nombre);
-	    producto.setDescripcion(descripcion);
-	    producto.setPrecio(precio);
-	    producto.setFechaCreacion(fechaCreacion);
+	    inventario.setNombreProducto(nombreProd);
+	    inventario.setCantidad(cantidad);
+	    inventario.setUltimaActualizacion(ultimaAct);
 
-	    List<Producto> listadoProducto;
+	    List<Inventario> listadoInventario;
 
 	    if (codigo != null && !codigo.isEmpty()) {
 	        // Recupero el código a actualizar
 	        int cod = Integer.parseInt(codigo);
 	        // Asigno el código a actualizar
-	        producto.setId(cod);
+	        inventario.setId(cod);
 	        // Invoco al método actualizar
-	        crud.ActualizarProducto(producto);
+	        crud.ActualizarInventario(inventario);
 	    } else {
 	        // Invocamos el método registrar
-	        crud.RegistrarProducto(producto);
+	        crud.RegistrarInventario(inventario);
 	    }
 
 	    // Actualizamos el listado
-	    listadoProducto = crud.ListadoProducto();
+	    listadoInventario = crud.ListadoInventario();
 
-	    // Hacemos el listado de productos
-	    request.setAttribute("listadoProductos", listadoProducto);
+	    // Hacemos el listado de inventarios
+	    request.setAttribute("listadoInventarios", listadoInventario);
 	    // Redireccionamos al usuario al listado
-	    request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);
+	    request.getRequestDispatcher("/ListadoInventarios.jsp").forward(request, response);
 	}
 
 }

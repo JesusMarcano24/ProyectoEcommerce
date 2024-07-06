@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -31,10 +30,6 @@ public class Usuario implements Serializable {
 	private String password;
 
 	private String rol;
-
-	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="usuario")
-	private List<Pedido> pedidos;
 
 	public Usuario() {
 	}
@@ -85,28 +80,6 @@ public class Usuario implements Serializable {
 
 	public void setRol(String rol) {
 		this.rol = rol;
-	}
-
-	public List<Pedido> getPedidos() {
-		return this.pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
-	public Pedido addPedido(Pedido pedido) {
-		getPedidos().add(pedido);
-		pedido.setUsuario(this);
-
-		return pedido;
-	}
-
-	public Pedido removePedido(Pedido pedido) {
-		getPedidos().remove(pedido);
-		pedido.setUsuario(null);
-
-		return pedido;
 	}
 
 }

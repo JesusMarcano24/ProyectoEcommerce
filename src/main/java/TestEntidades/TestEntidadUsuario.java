@@ -1,22 +1,25 @@
 package TestEntidades;
 
+import java.util.Date;
 import java.util.List;
 
-import Dao.ClassUsuarioImp;
-import modelo.TblUsuariocl3;
+import Dao.UsuarioDaoImpl;
+import model.Usuario;
 
 public class TestEntidadUsuario {
 
 	public static void main(String[] args) {
-		TblUsuariocl3 usuario= new TblUsuariocl3();
-		ClassUsuarioImp crud= new ClassUsuarioImp();
+		Usuario usuario= new Usuario();
+		UsuarioDaoImpl crud= new UsuarioDaoImpl();
 		
 		//asignamos valores
-		usuario.setUsuariocl3("Andres");
-		usuario.setPasswordcl3("sdlvnslvs");
+		usuario.setNombre("Jesus");
+		usuario.setPassword("123");
+		usuario.setFechaCreacion(new Date());
+		usuario.setEmail("jesus@gmail.com");
+		usuario.setRol("admin");
 		
 		//invocamos el metodo registrar
-		crud.RegistrarUsuario(usuario);
 		
 		/*List<TblUsuariocl2> listado=crud.ListadoUsuario();
 		for(TblUsuariocl2 list:listado){
