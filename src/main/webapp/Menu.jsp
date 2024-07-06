@@ -42,14 +42,32 @@
         background-color: #45a049;
         transform: scale(1.05);
     }
+    .user-info {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 14px;
+        color: #333;
+    }
 </style>
 </head>
 <body>
+<%
+    String usuarioLogueado = (String) session.getAttribute("usuarioLogueado");
+    String rolLogueado = (String) session.getAttribute("rolLogueado");
+%>
+<div class="user-info">
+    <strong>Usuario:</strong> <%= usuarioLogueado %><br>
+    <strong>Rol:</strong> <%= rolLogueado %>
+</div>
 <h1>TECHWARE Menu</h1>
 <div class="menu-container">
     <a class="menu-button" href="ControladorProducto?accion=Listar">Mostrar listado de Productos</a>
     <a class="menu-button" href="ControladorInventario?accion=Listar">Mostrar listado de Inventarios</a>
     <a class="menu-button" href="ControladorUsuario">Mostrar listado de Usuarios</a>
+    <% if ("admin".equals(rolLogueado)) { %>
+        <a class="menu-button" href="ControladorReporte">Mostrar Reportes</a>
+    <% } %>
 </div>
 </body>
 </html>

@@ -31,7 +31,7 @@
         margin: 20px auto;
         transition: transform 0.2s;
         display: block;
-        width: fit-content;
+        width: 250px;
     }
     .menu-button:hover {
         background-color: #45a049;

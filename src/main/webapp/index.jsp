@@ -8,12 +8,63 @@
     if(loginError == null) loginError = "";
 %>
 <meta charset="UTF-8">
-<title>Index</title>
+<title>Ingresar al sistema</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+    }
+    .login-container {
+        background-color: #e8f5e9;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+    h1 {
+        color: #4CAF50;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+    .btn-primary {
+        background-color: #4CAF50;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 3px;
+        width: fit-content;
+    }
+    .btn-primary:hover {
+        background-color: #45a049;
+    }
+    .alert-warning {
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        color: #856404;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .welcome-text {
+        color: #4CAF50;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+</style>
 </head>
-<body class="p-5">
-    <div class="container col-4">
+<body>
+    <div class="text-center welcome-text">Bienvenidos a TECHWARE</div>
+    <div class="login-container">
         <h1 class="fw-bold text-center">Ingresar al sistema</h1>
         <form action="ControladorUsuario" method="post">
             <div class="mb-3">
@@ -24,7 +75,7 @@
                 <label class="form-label">Clave</label>
                 <input type="password" class="form-control" name="password" required>
             </div>
-            <div class="mb-3">
+            <div class="text-center">
                 <button class="btn btn-primary" type="submit">
                     <i class="bi bi-door-open"></i> Iniciar Sesión
                 </button>

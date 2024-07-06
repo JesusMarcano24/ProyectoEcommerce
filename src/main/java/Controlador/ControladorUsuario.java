@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Dao.UsuarioDaoImpl;
 import model.Usuario;
@@ -46,18 +47,22 @@ public class ControladorUsuario extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuario = request.getParameter("nombre");
-		String clave = request.getParameter("password");
-		Usuario usuarioLogin = usuarioDaoImpl.usuarioLogin(usuario, clave);
-		if(usuarioLogin == null) {
-			request.setAttribute("loginError", "Credenciales incorrectas");
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
-		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
-			rd.forward(request, response);
-		}
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nombre = request.getParameter("nombre");
+        String password = request.getParameter("password");
+
+        UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
+        Usuario usuario = usuarioDao.usuarioLogin(nombre, password);
+
+        if (usuario != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("usuarioLogueado", usuario.getNombre());
+            session.setAttribute("rolLogueado", usuario.getRol());
+            response.sendRedirect("Menu.jsp");
+        } else {
+            request.setAttribute("loginError", "Usuario o contraseña incorrecta.");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    }
 
 }
