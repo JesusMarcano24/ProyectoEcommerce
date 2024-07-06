@@ -53,7 +53,7 @@ public class ControladorProducto extends HttpServlet {
                 case "Eliminar":
                     int codeliminar = Integer.parseInt(request.getParameter("cod"));
                     producto.setId(codeliminar);
-                    crud.EliminarProducto(producto);  // Línea 66
+                    crud.EliminarProducto(producto);
                     List<Producto> listado = crud.ListadoProducto();
                     request.setAttribute("listadodeproductos", listado);
                     request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);

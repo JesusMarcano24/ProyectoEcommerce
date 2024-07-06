@@ -48,6 +48,7 @@
 <h1>TECHWARE Menu</h1>
 <div class="menu-container">
     <a class="menu-button" href="ControladorProducto?accion=Listar">Mostrar listado de Productos</a>
+    <a class="menu-button" href="ControladorInventario?accion=Listar">Mostrar listado de Inventarios</a>
     <a class="menu-button" href="ControladorUsuario">Mostrar listado de Usuarios</a>
 </div>
 </body>

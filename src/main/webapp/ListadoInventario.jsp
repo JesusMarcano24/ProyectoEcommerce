@@ -1,4 +1,4 @@
-<%@page import="model.Producto"%>
+<%@page import="model.Inventario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Productos</title>
+<title>Listado de Inventarios</title>
 <!-- Añadir Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
@@ -93,34 +93,34 @@
 </style>
 </head>
 <body>
-<h1>Listado de Productos registrados en la BD</h1>
+<h1>Listado de Inventarios registrados en la BD</h1>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
+            <th>Nombre del Producto</th>
+            <th>Cantidad</th>
+            <th>Ultima Actualización</th>
             <th colspan="2" class="text-center">Acciones</th>
         </tr>
     </thead>
     <tbody>
         <% 
-        List<Producto> listadoProductos = (List<Producto>) request.getAttribute("listadoProductos");
-        if (listadoProductos != null) {
-            for (Producto lis : listadoProductos) {
+        List<Inventario> listadoInventarios = (List<Inventario>) request.getAttribute("listadoInventarios");
+        if (listadoInventarios != null) {
+            for (Inventario lis : listadoInventarios) {
         %>
         <tr>
             <td><%= lis.getId() %></td>
-            <td><%= lis.getNombre() %></td>
-            <td><%= lis.getDescripcion() %></td>
-            <td><%= lis.getPrecio() %></td>
+            <td><%= lis.getNombreProducto() %></td>
+            <td><%= lis.getCantidad() %></td>
+            <td><%= lis.getUltimaActualizacion() %></td>
             <td class="text-center">
-                <a href="ControladorProducto?accion=Eliminar&cod=<%= lis.getId() %>" class="btn btn-danger">Eliminar</a>
+                <a href="ControladorInventario?accion=Eliminar&cod=<%= lis.getId() %>" class="btn btn-danger">Eliminar</a>
             </td>
 	        <td class="text-center">
-                <a href="ControladorProducto?accion=Modificar&cod=<%= lis.getId() %>" class="btn btn-primary">Actualizar</a>
+                <a href="ControladorInventario?accion=Modificar&cod=<%= lis.getId() %>" class="btn btn-primary">Actualizar</a>
             </td>
         </tr>	
         <%	
@@ -132,9 +132,9 @@
 
 <!-- Botón flotante -->
 <div class="floating-button-container">
-    <a href="FormRegistrarProducto.jsp" class="floating-button">
+    <a href="FormRegistrarInventario.jsp" class="floating-button">
         +
-        <span class="button-text">Registrar Producto</span>
+        <span class="button-text">Registrar Inventario</span>
     </a>
 </div>
 

@@ -10,6 +10,12 @@
   	<description></description>
   	<servlet-class>Controlador.ControladorUsuario</servlet-class>
   </servlet>
+   <servlet>
+    <servlet-name>ControladorInventario</servlet-name>
+    <display-name>ControladorInventario</display-name>
+    <description></description>
+    <servlet-class>Controlador.ControladorInventario</servlet-class>
+    </servlet>
   <servlet>
   	<servlet-name>ControladorProducto</servlet-name>
   	<display-name>ControladorProducto</display-name>
@@ -23,5 +29,9 @@
   <servlet-mapping>
   	<servlet-name>ControladorProducto</servlet-name>
   	<url-pattern>/ControladorProducto</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>ControladorInventario</servlet-name>
+  	<url-pattern>/ControladorInventario</url-pattern>
   </servlet-mapping>
 </web-app>
