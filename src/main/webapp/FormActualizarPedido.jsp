@@ -1,11 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="model.Producto" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Actualizar Producto</title>
+<title>Actualizar Pedido</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -48,12 +48,17 @@
     td {
         border-bottom: 1px solid #ddd;
     }
-    input[type="text"], textarea {
-        width: 100%;
+    input[type="text"], input[type="number"], input[type="date"] {
+        width: 200px;
         padding: 10px;
         box-sizing: border-box;
         border-radius: 5px;
         border: 1px solid #ccc;
+    }
+    input[readonly] {
+        background-color: #e8f5e9;
+        border: none;
+        pointer-events: none;
     }
     .center {
         text-align: center;
@@ -73,34 +78,58 @@
     }
     
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var pedidoManualInput = document.getElementsByName("pedidoManual")[0];
+        var totalInput = document.getElementsByName("total")[0];
+
+        function calculateTotal() {
+            var pedidoManual = parseFloat(pedidoManualInput.value) || 0;
+            var total = pedidoManual + (pedidoManual * 0.18);
+            totalInput.value = total.toFixed(2);
+        }
+
+        pedidoManualInput.addEventListener("input", calculateTotal);
+
+        // Inicializa el valor del total cuando se carga la página
+        calculateTotal();
+    });
+</script>
 </head>
 <body>
 <h2>
     <a class="menu-button" href="Menu.jsp">Volver al Menú</a>
 </h2>
-<h1>Actualizar Producto</h1>
+<h1>Actualizar Pedido</h1>
 <div class="form-container">
-    <form method="post" action="ControladorProducto">
+    <form method="post" action="ControladorPedido">
         <table>
             <input type="hidden" name="codigo" value="<%=request.getAttribute("codigo")%>">
             <tr>
-                <th colspan="2" class="center">Datos del Producto</th>
+                <th colspan="2" class="center">Datos del Pedido</th>
             </tr>
             <tr>
-                <td>Nombre:</td>
-                <td><input type="text" name="nombre" value="<%=request.getAttribute("nombre")%>"></td>
+                <td>Estado:</td>
+                <td><input type="text" name="estado" value="<%=request.getAttribute("estado")%>" required></td>
             </tr>
             <tr>
-                <td>Descripción:</td>
-                <td><textarea name="descripcion" rows="4" cols="50"><%=request.getAttribute("descripcion")%></textarea></td>
+                <td>Fecha Pedido:</td>
+                <td><input type="date" id="fechaPedido" name="fechaPedido" value="<%= new SimpleDateFormat("yyyy-MM-dd").format(request.getAttribute("fechaPedido")) %>" readonly></td>
             </tr>
             <tr>
-                <td>Precio:</td>
-                <td><input type="text" name="precio" value="<%=request.getAttribute("precio")%>"></td>
+                <td>Nombre Usuario:</td>
+                <td><input type="text" name="nombreUsuario" value="<%=request.getAttribute("nombreUsuario")%>" readonly></td>
             </tr>
-            <input type="hidden" name="fechaCreacion" value="<%=request.getAttribute("fechaCreacion")%>">
             <tr>
-                <td colspan="2" class="center"><input type="submit" value="Actualizar Producto" class="submit-button"></td>
+                <td>Pedido Manual:</td>
+                <td><input type="number" name="pedidoManual" value="<%=request.getAttribute("pedidoManual")%>" required></td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td><input type="number" step="0.01" name="total" readonly></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="center"><input type="submit" value="Actualizar Pedido" class="submit-button"></td>
             </tr>
         </table>
     </form>

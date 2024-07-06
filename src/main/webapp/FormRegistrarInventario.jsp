@@ -76,9 +76,13 @@
         background-color: #e8f5e9; /* Para que coincida con el fondo del formulario */
         border: none; /* Para que no se vea como un input */
     }
+    
 </style>
 </head>
 <body>
+<h2>
+    <a class="menu-button" href="Menu.jsp">Volver al Menú</a>
+</h2>
 <h1>Registrar Inventario</h1>
 <div class="form-container">
     <form action="ControladorInventario" method="post">

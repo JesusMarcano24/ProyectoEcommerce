@@ -64,10 +64,11 @@
 <div class="menu-container">
     <a class="menu-button" href="ControladorProducto?accion=Listar">Mostrar listado de Productos</a>
     <a class="menu-button" href="ControladorInventario?accion=Listar">Mostrar listado de Inventarios</a>
+    <a class="menu-button" href="ControladorPedido?accion=Listar">Mostrar listado de Pedidos</a>
     <a class="menu-button" href="ControladorUsuario">Mostrar listado de Usuarios</a>
     <% if ("admin".equals(rolLogueado)) { %>
         <a class="menu-button" href="ControladorReporte">Mostrar Reportes</a>
     <% } %>
 </div>
 </body>
-</html>
+</html> 

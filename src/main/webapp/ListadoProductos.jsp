@@ -87,12 +87,16 @@
         visibility: hidden;
         transition: opacity 0.3s, visibility 0.3s, right 0.3s;
     }
+    
     .floating-button:hover .button-text {
         right: 70px;
     }
 </style>
 </head>
 <body>
+<h2>
+    <a class="menu-button" href="Menu.jsp">Volver al Menú</a>
+</h2>
 <h1>Listado de Productos registrados en la BD</h1>
 
 <table class="table table-striped">

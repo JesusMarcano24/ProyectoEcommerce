@@ -4,18 +4,24 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
+   <servlet>
   	<servlet-name>ControladorUsuario</servlet-name>
   	<display-name>ControladorUsuario</display-name>
   	<description></description>
   	<servlet-class>Controlador.ControladorUsuario</servlet-class>
-  </servlet>
+   </servlet>
     <servlet>
     <servlet-name>ControladorReporte</servlet-name>
     <display-name>ControladorReporte</display-name>
     <description></description>
     <servlet-class>Controlador.ControladorReporte</servlet-class>
-</servlet>
+   </servlet>
+    <servlet>
+    <servlet-name>ControladorPedido</servlet-name>
+    <display-name>ControladorPedido</display-name>
+    <description></description>
+    <servlet-class>Controlador.ControladorPedido</servlet-class>
+   </servlet>
    <servlet>
     <servlet-name>ControladorInventario</servlet-name>
     <display-name>ControladorInventario</display-name>
@@ -40,8 +46,12 @@
   	<servlet-name>ControladorInventario</servlet-name>
   	<url-pattern>/ControladorInventario</url-pattern>
   </servlet-mapping>
-<servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ControladorReporte</servlet-name>
     <url-pattern>/ControladorReporte</url-pattern>
-</servlet-mapping>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ControladorPedido</servlet-name>
+    <url-pattern>/ControladorPedido</url-pattern>
+  </servlet-mapping>
 </web-app>

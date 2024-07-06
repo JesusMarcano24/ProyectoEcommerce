@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List" %>
@@ -5,6 +6,7 @@
 <%@ page import="model.Producto" %>
 <%@ page import="model.Inventario" %>
 <%@ page import="model.Usuario" %>
+<%@ page import="model.Pedido" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,6 +45,9 @@
 </style>
 </head>
 <body>
+<h2>
+    <a class="menu-button" href="Menu.jsp">Volver al Menú</a>
+</h2>
 <h1>Reportes</h1>
 
 <% 
@@ -50,6 +55,7 @@
     List<Usuario> usuarios = (List<Usuario>) session.getAttribute("usuarios");
     List<Producto> productos = (List<Producto>) session.getAttribute("productos");
     List<Inventario> inventarios = (List<Inventario>) session.getAttribute("inventarios");
+    List<Pedido> pedidos = (List<Pedido>) session.getAttribute("pedidos");
 
     // Variables para datos de usuarios
     int numUsuarios = 0;
@@ -117,6 +123,24 @@
             }
         }
     }
+
+    // Variables para datos de pedidos
+    int numPedidos = 0;
+    BigDecimal totalPedidos = BigDecimal.ZERO;
+    Pedido pedidoMasReciente = null;
+
+    // Calcular datos de pedidos
+    if (pedidos != null) {
+        numPedidos = pedidos.size();
+        for (Pedido pedido : pedidos) {
+            totalPedidos = totalPedidos.add(pedido.getTotal());
+            if (pedidoMasReciente == null || 
+                (pedido.getFechaPedido() != null && 
+                (pedidoMasReciente.getFechaPedido() == null || pedido.getFechaPedido().compareTo(pedidoMasReciente.getFechaPedido()) > 0))) {
+                pedidoMasReciente = pedido;
+            }
+        }
+    }
 %>
 
 <h2>Usuarios</h2>
@@ -141,6 +165,13 @@
     <tr><td>Inventario con Más Cantidad:</td><td><%= inventarioMasCantidad != null ? inventarioMasCantidad.getNombreProducto() + " - " + inventarioMasCantidad.getCantidad() : "No disponible" %></td></tr>
     <tr><td>Inventario con Menos Cantidad:</td><td><%= inventarioMenosCantidad != null ? inventarioMenosCantidad.getNombreProducto() + " - " + inventarioMenosCantidad.getCantidad() : "No disponible" %></td></tr>
     <tr><td>Inventario Actualizado Más Recientemente:</td><td><%= inventarioRecienteActualizacion != null ? inventarioRecienteActualizacion.getNombreProducto() + " - " + inventarioRecienteActualizacion.getUltimaActualizacion() : "No disponible" %></td></tr>
+</table>
+
+<h2>Pedidos</h2>
+<table>
+    <tr><td>Número de Pedidos:</td><td><%= numPedidos %></td></tr>
+    <tr><td>Total de Pedidos:</td><td><%= totalPedidos %></td></tr>
+    <tr><td>Pedido Más Reciente:</td><td><%= pedidoMasReciente != null ? pedidoMasReciente.getNombreUsuario() + " - " + pedidoMasReciente.getFechaPedido() : "No disponible" %></td></tr>
 </table>
 
 </body>

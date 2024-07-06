@@ -4,22 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Registrar Producto</title>
+<title>Registrar Pedido</title>
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
+        background-color: #f9f9f9;
+        margin: 0;
     }
     h1 {
-        text-align: center;
         color: #4CAF50;
+        margin-bottom: 30px;
     }
     .form-container {
         display: flex;
@@ -47,12 +46,17 @@
     td {
         border-bottom: 1px solid #ddd;
     }
-    input[type="text"], textarea {
-        width: 100%;
+    input[type="text"], input[type="number"], input[type="date"] {
+        width: 200px;
         padding: 10px;
         box-sizing: border-box;
         border-radius: 5px;
         border: 1px solid #ccc;
+    }
+    input[readonly] {
+        background-color: #e8f5e9;
+        border: none;
+        pointer-events: none;
     }
     .center {
         text-align: center;
@@ -70,48 +74,60 @@
         background-color: #45a049;
         transform: scale(1.02);
     }
-    /* Estilo para el input de fecha no editable */
-    .no-pointer-events {
-        pointer-events: none;
-        background-color: #e8f5e9; /* Para que coincida con el fondo del formulario */
-        border: none; /* Para que no se vea como un input */
-    }
-    
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("fechaPedido").value = today;
+
+        var pedidoManualInput = document.getElementsByName("pedidoManual")[0];
+        var totalInput = document.getElementsByName("total")[0];
+
+        pedidoManualInput.addEventListener("input", function() {
+            var pedidoManual = parseFloat(pedidoManualInput.value) || 0;
+            var total = pedidoManual + (pedidoManual * 0.18);
+            totalInput.value = total.toFixed(2);
+        });
+    });
+</script>
 </head>
 <body>
+<%
+    String usuarioLogueado = (String) session.getAttribute("usuarioLogueado");
+%>
 <h2>
     <a class="menu-button" href="Menu.jsp">Volver al Menú</a>
 </h2>
-<h1>Registrar Producto</h1>
+<h1>Registrar Pedido</h1>
 <div class="form-container">
-    <form action="ControladorProducto" method="post">
+    <form action="ControladorPedido" method="post">
         <table>
             <tr>
-                <th colspan="2" class="center">Datos del Producto</th>
+                <th colspan="2" class="center">Datos del Pedido</th>
             </tr>
             <tr>
-                <td>Nombre:</td>
-                <td><input type="text" name="nombre"></td>
+                <td>Estado:</td>
+                <td><input type="text" name="estado" required></td>
             </tr>
             <tr>
-                <td>Descripcion:</td>
-                <td><textarea name="descripcion" rows="4" cols="50"></textarea></td>
+                <td>Fecha Pedido:</td>
+                <td><input type="date" id="fechaPedido" name="fechaPedido" readonly></td>
             </tr>
             <tr>
-                <td>Precio:</td>
-                <td><input type="text" name="precio"></td>
+                <td>Nombre Usuario:</td>
+                <td><input type="text" name="nombreUsuario" value="<%= usuarioLogueado %>" readonly></td>
             </tr>
             <tr>
-                <td>Fecha Creacion:</td>
-                <td>
-                    <input type="text" id="fechaCreacion" name="fechaCreacion" class="no-pointer-events"
-                           value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()) %>">
-                </td>
+                <td>Pedido Manual:</td>
+                <td><input type="number" name="pedidoManual" required></td>
+            </tr>
+            <tr>
+                <td>Total con IGV:</td>
+                <td><input type="number" step="0.01" name="total" readonly></td>
             </tr>
             <tr>
                 <td colspan="2" class="center">
-                    <input type="submit" value="Registrar Producto" class="submit-button">
+                    <input type="submit" value="Registrar Pedido" class="submit-button">
                 </td>
             </tr>
         </table>

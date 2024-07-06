@@ -70,9 +70,13 @@
         background-color: #45a049;
         transform: scale(1.02);
     }
+    
 </style>
 </head>
 <body>
+<h2>
+    <a class="menu-button" href="Menu.jsp">Volver al Menú</a>
+</h2>
 <h1>Actualizar Inventario</h1>
 <div class="form-container">
     <form method="post" action="ControladorInventario">
