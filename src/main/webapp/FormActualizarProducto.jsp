@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="modelo.TblProductocl3" %> 
+<%@page import="model.Producto" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -91,17 +91,10 @@
                 <td><textarea name="descripcion" rows="4" cols="50"><%=request.getAttribute("descripcion")%></textarea></td>
             </tr>
             <tr>
-                <td>Estado:</td>
-                <td><input type="text" name="estado" value="<%=request.getAttribute("estado")%>"></td>
+                <td>Precio:</td>
+                <td><input type="text" name="precio" value="<%=request.getAttribute("precio")%>"></td>
             </tr>
-            <tr>
-                <td>Precio de Venta:</td>
-                <td><input type="text" name="precioVenta" value="<%=request.getAttribute("precioVenta")%>"></td>
-            </tr>
-            <tr>
-                <td>Precio de Compra:</td>
-                <td><input type="text" name="precioCompra" value="<%=request.getAttribute("precioCompra")%>"></td>
-            </tr>
+            <input type="hidden" name="fechaCreacion" value="<%=request.getAttribute("fechaCreacion")%>">
             <tr>
                 <td colspan="2" class="center"><input type="submit" value="Actualizar Producto" class="submit-button"></td>
             </tr>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Mi Proyecto Maven</title>
+<title>TECHWARE Menu</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -45,7 +45,7 @@
 </style>
 </head>
 <body>
-<h1>Mi Proyecto Maven</h1>
+<h1>TECHWARE Menu</h1>
 <div class="menu-container">
     <a class="menu-button" href="ControladorProducto?accion=Listar">Mostrar listado de Productos</a>
     <a class="menu-button" href="ControladorUsuario">Mostrar listado de Usuarios</a>

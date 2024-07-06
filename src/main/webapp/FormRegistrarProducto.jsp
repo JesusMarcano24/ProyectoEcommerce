@@ -70,6 +70,12 @@
         background-color: #45a049;
         transform: scale(1.02);
     }
+    /* Estilo para el input de fecha no editable */
+    .no-pointer-events {
+        pointer-events: none;
+        background-color: #e8f5e9; /* Para que coincida con el fondo del formulario */
+        border: none; /* Para que no se vea como un input */
+    }
 </style>
 </head>
 <body>
@@ -82,23 +88,22 @@
             </tr>
             <tr>
                 <td>Nombre:</td>
-                <td><input type="text" name="nombre" ></td>
+                <td><input type="text" name="nombre"></td>
             </tr>
             <tr>
-                <td>Precio de Venta:</td>
-                <td><input type="text" name="precioventa" ></td>
+                <td>Descripcion:</td>
+                <td><textarea name="descripcion" rows="4" cols="50"></textarea></td>
             </tr>
             <tr>
-                <td>Precio de Compra:</td>
-                <td><input type="text" name="preciocompra" ></td>
+                <td>Precio:</td>
+                <td><input type="text" name="precio"></td>
             </tr>
             <tr>
-                <td>Estado:</td>
-                <td><input type="text" name="estado" ></td>
-            </tr>
-            <tr>
-                <td>Descripción:</td>
-                <td><textarea name="descripcion" rows="4" cols="50" ></textarea></td>
+                <td>Fecha Creacion:</td>
+                <td>
+                    <input type="text" id="fechaCreacion" name="fechaCreacion" class="no-pointer-events"
+                           value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()) %>">
+                </td>
             </tr>
             <tr>
                 <td colspan="2" class="center">

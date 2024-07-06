@@ -32,110 +32,83 @@ public class ControladorProducto extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
-		//Instanciamos
-		Producto producto = new Producto();
-		ClassProductoImp crud = new ClassProductoImp();
-		
-		//recuperamos la accion y codigo
-		String accion=request.getParameter("accion");
-		//aplicamos una condicion...
-		if(accion!=null){
-			switch(accion){
-			case "Modificar":
-				int codigo=Integer.parseInt(request.getParameter("cod"));
-				//asignar el codigo...
-				producto.setId(codigo);
-				Producto buscarcod=crud.BuscarProducto(producto);
-				request.setAttribute("codigo",buscarcod.getId());
-				request.setAttribute("nombre",buscarcod.getNombre());
-				request.setAttribute("descripcion",buscarcod.getDescripcion());
-				request.setAttribute("precio",buscarcod.getPrecio());
-				request.setAttribute("fechaCreacion",buscarcod.getFechaCreacion());
-				//redireccionamos..
-				request.getRequestDispatcher("/FormActualizarProducto.jsp").forward(request, response);
-				//salimos
-				break;
-			case "Eliminar":
-				int codeliminar=Integer.parseInt(request.getParameter("cod"));
-				//asignamos el codigo a eliminar
-				producto.setId(codeliminar);
-				//invocamos al metodo eliminar...
-				crud.EliminarProducto(producto);
-				//refrescar el listado..
-				List<Producto> listado=crud.ListadoProducto();
-				request.setAttribute("listadodeproductos",listado);
-				//redireccionar
-				request.getRequestDispatcher("/ListadoProductos.jsp");
-				//salimos
-				break;
-			
-			case "Listar":
-				List<Producto> listadoProducto= crud.ListadoProducto();
-				//Hacemos el listado de productos
-				request.setAttribute("listadoProductos", listadoProducto);
-				//Redireccion
-				request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);
-				break;
-				
-			 }  //fin del switch...
-			
-			
-		}   //fin 
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Producto producto = new Producto();
+        ClassProductoImp crud = new ClassProductoImp();
+        
+        String accion = request.getParameter("accion");
+        if (accion != null) {
+            switch (accion) {
+                case "Modificar":
+                    int codigo = Integer.parseInt(request.getParameter("cod"));
+                    producto.setId(codigo);
+                    Producto buscarcod = crud.BuscarProducto(producto);
+                    request.setAttribute("codigo", buscarcod.getId());
+                    request.setAttribute("nombre", buscarcod.getNombre());
+                    request.setAttribute("descripcion", buscarcod.getDescripcion());
+                    request.setAttribute("precio", buscarcod.getPrecio());
+                    request.setAttribute("fechaCreacion", buscarcod.getFechaCreacion());
+                    request.getRequestDispatcher("/FormActualizarProducto.jsp").forward(request, response);
+                    break;
+                case "Eliminar":
+                    int codeliminar = Integer.parseInt(request.getParameter("cod"));
+                    producto.setId(codeliminar);
+                    crud.EliminarProducto(producto);  // Línea 66
+                    List<Producto> listado = crud.ListadoProducto();
+                    request.setAttribute("listadodeproductos", listado);
+                    request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);
+                    break;
+                case "Listar":
+                    List<Producto> listadoProducto = crud.ListadoProducto();
+                    request.setAttribute("listadoProductos", listadoProducto);
+                    request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);
+                    break;
+            }
+        }
+    }
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    // Recuperamos valores
-	    String nombre = request.getParameter("nombre");
-	    String codigo = request.getParameter("codigo");
-	    String fechaCreacionStr = request.getParameter("fechaCreacion");
-	    String precioStr = request.getParameter("precio");
-	    String descripcion = request.getParameter("descripcion");
-	    
-	    BigDecimal precio = new BigDecimal(precioStr);
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    Date fechaCreacion = null;
-	    try {
-	        fechaCreacion = dateFormat.parse(fechaCreacionStr);
-	    } catch (ParseException e) {
-	        e.printStackTrace();
-	    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nombre = request.getParameter("nombre");
+        String codigo = request.getParameter("codigo");
+        String fechaCreacionStr = request.getParameter("fechaCreacion");
+        String precioStr = request.getParameter("precio");
+        String descripcion = request.getParameter("descripcion");
+        
+        BigDecimal precio = new BigDecimal(precioStr);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaCreacion = null;
+        try {
+            fechaCreacion = dateFormat.parse(fechaCreacionStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-	    // Instanciamos las entidades
-	    Producto producto = new Producto();
-	    ClassProductoImp crud = new ClassProductoImp();
+        Producto producto = new Producto();
+        ClassProductoImp crud = new ClassProductoImp();
 
-	    producto.setNombre(nombre);
-	    producto.setDescripcion(descripcion);
-	    producto.setPrecio(precio);
-	    producto.setFechaCreacion(fechaCreacion);
+        producto.setNombre(nombre);
+        producto.setDescripcion(descripcion);
+        producto.setPrecio(precio);
+        producto.setFechaCreacion(fechaCreacion);
 
-	    List<Producto> listadoProducto;
+        List<Producto> listadoProducto;
 
-	    if (codigo != null && !codigo.isEmpty()) {
-	        // Recupero el código a actualizar
-	        int cod = Integer.parseInt(codigo);
-	        // Asigno el código a actualizar
-	        producto.setId(cod);
-	        // Invoco al método actualizar
-	        crud.ActualizarProducto(producto);
-	    } else {
-	        // Invocamos el método registrar
-	        crud.RegistrarProducto(producto);
-	    }
+        if (codigo != null && !codigo.isEmpty()) {
+            int cod = Integer.parseInt(codigo);
+            producto.setId(cod);
+            crud.ActualizarProducto(producto);
+        } else {
+            crud.RegistrarProducto(producto);
+        }
 
-	    // Actualizamos el listado
-	    listadoProducto = crud.ListadoProducto();
+        listadoProducto = crud.ListadoProducto();
 
-	    // Hacemos el listado de productos
-	    request.setAttribute("listadoProductos", listadoProducto);
-	    // Redireccionamos al usuario al listado
-	    request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);
-	}
+        request.setAttribute("listadoProductos", listadoProducto);
+        request.getRequestDispatcher("/ListadoProductos.jsp").forward(request, response);
+    }
 
 }

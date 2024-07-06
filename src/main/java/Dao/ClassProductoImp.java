@@ -47,13 +47,25 @@ public class ClassProductoImp implements IProducto {
 
 	@Override
 	public void EliminarProducto(Producto producto) {
-		EntityManagerFactory fabr= Persistence.createEntityManagerFactory("ProyectoEcommerce");
-		EntityManager em=fabr.createEntityManager();
-		em.getTransaction().begin();
-		Producto elim=em.merge(producto);
-		em.remove(elim);
-		em.getTransaction().commit();
-		em.close();
+	    EntityManagerFactory fabr = Persistence.createEntityManagerFactory("ProyectoEcommerce");
+	    EntityManager em = fabr.createEntityManager();
+	    em.getTransaction().begin();
+	    try {
+	        // Recuperar el producto desde la base de datos
+	        Producto productoExistente = em.find(Producto.class, producto.getId());
+	        if (productoExistente != null) {
+	            em.remove(productoExistente);
+	            System.out.println("Producto eliminado con éxito en la BD");
+	        } else {
+	            System.out.println("Producto no encontrado para eliminar");
+	        }
+	        em.getTransaction().commit();
+	    } catch (Exception ex) {
+	        em.getTransaction().rollback();
+	        ex.printStackTrace();
+	    } finally {
+	        em.close();
+	    }
 	}
 
 	@Override
